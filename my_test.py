@@ -2,6 +2,8 @@
 """
 Created on Sun Feb 26 15:00:55 2017
 
+Stole from "Gray Hat Python"
+
 @author: d0wn3rDav3
 """
 

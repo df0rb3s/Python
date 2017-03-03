@@ -1,5 +1,5 @@
 """
-Stolen from "Grey Hat Python"
+Stolen from "Gray Hat Python"
 
 @author: d0wn3rDav3
 """

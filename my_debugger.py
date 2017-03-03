@@ -2,7 +2,7 @@
 """
 Created on Sun Feb 26 14:53:05 2017
 
-Stolen from "Grey Hat Python"
+Stolen from "Gray Hat Python"
 
 @author: d0wn3rDav3
 """
@@ -60,6 +60,27 @@ class debugger():
 
         else:
             print "[*] Error: 0x%08x." % kernel32.GetLastError()
+            
+    def testWinError():
+        if kernel32.GetLastError() != 0:
+            raise WinError()
+            
+    def wow64_get_thread_context(self,thread_id=None,h_thread=None):
+        context = CONTEXT()
+        context.ContextFlags = CONTEXT_FULL | CONTEXT_DEBUG_REGISTERS
+        if h_thread is None:
+            h_thread = self.open_thread(thread_id)
+        if kernel32.Wow64SuspendThread(h_thread) != 1:
+            if kernel32.Wow64GetThreadContext(h_thread,byref(context)) != 0:
+                kernel32.ResumeThread(h_thread)
+                kernel32.CloseHandle(h_thread)
+                return context
+            else:
+                testWinError()
+                return False
+        else:
+            testWinError()
+            return False    
             
     def open_process(self,pid):
         
